@@ -1,0 +1,127 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
+
+# Função para calcular o IMC
+def calcular_imc():
+    def calcular():
+        try:
+            peso = float(entry_peso.get())
+            altura = float(entry_altura.get())
+            if peso <= 0 or altura <= 0:
+                messagebox.showerror("Erro", "Peso e altura devem ser valores positivos!")
+                return
+            imc = peso / (altura ** 2)
+            resultado_imc.config(text=f"Seu IMC é: {imc:.2f}")
+        except ValueError:
+            messagebox.showerror("Erro", "Por favor, insira valores numéricos válidos.")
+
+    imc_window = tk.Toplevel()
+    imc_window.title("Calculadora IMC")
+
+    tk.Label(imc_window, text="Peso (kg):").pack(pady=5)
+    entry_peso = tk.Entry(imc_window)
+    entry_peso.pack(pady=5)
+
+    tk.Label(imc_window, text="Altura (m):").pack(pady=5)
+    entry_altura = tk.Entry(imc_window)
+    entry_altura.pack(pady=5)
+
+    calcular_btn = ttk.Button(imc_window, text="Calcular IMC", command=calcular)
+    calcular_btn.pack(pady=10)
+
+    resultado_imc = tk.Label(imc_window, text="Seu IMC será exibido aqui.")
+    resultado_imc.pack(pady=10)
+
+# Função para calcular a Calculadora simples
+def calculadora():
+    def calcular():
+        try:
+            num1 = float(entry_num1.get())
+            num2 = float(entry_num2.get())
+            operacao = combo_opcao.get()
+            if operacao == '+':
+                resultado = num1 + num2
+            elif operacao == '-':
+                resultado = num1 - num2
+            elif operacao == '*':
+                resultado = num1 * num2
+            elif operacao == '/':
+                if num2 == 0:
+                    messagebox.showerror("Erro", "Não é possível dividir por zero.")
+                    return
+                resultado = num1 / num2
+            resultado_calculo.config(text=f"Resultado: {resultado:.2f}")
+        except ValueError:
+            messagebox.showerror("Erro", "Por favor, insira valores numéricos válidos.")
+
+    calc_window = tk.Toplevel()
+    calc_window.title("Calculadora")
+
+    tk.Label(calc_window, text="Número 1:").pack(pady=5)
+    entry_num1 = tk.Entry(calc_window)
+    entry_num1.pack(pady=5)
+
+    tk.Label(calc_window, text="Número 2:").pack(pady=5)
+    entry_num2 = tk.Entry(calc_window)
+    entry_num2.pack(pady=5)
+
+    tk.Label(calc_window, text="Operação:").pack(pady=5)
+    combo_opcao = ttk.Combobox(calc_window, values=["+", "-", "*", "/"])
+    combo_opcao.pack(pady=5)
+    combo_opcao.set("+")
+
+    calcular_btn = ttk.Button(calc_window, text="Calcular", command=calcular)
+    calcular_btn.pack(pady=10)
+
+    resultado_calculo = tk.Label(calc_window, text="Resultado será exibido aqui.")
+    resultado_calculo.pack(pady=10)
+
+# Função para calcular a Regra de 3
+def regra_de_3():
+    def calcular():
+        try:
+            valor1 = float(entry_valor1.get())
+            valor2 = float(entry_valor2.get())
+            valor3 = float(entry_valor3.get())
+            resultado = (valor2 * valor3) / valor1
+            resultado_regra.config(text=f"Resultado: {resultado:.2f}")
+        except ValueError:
+            messagebox.showerror("Erro", "Por favor, insira valores numéricos válidos.")
+
+    regra_window = tk.Toplevel()
+    regra_window.title("Regra de 3")
+
+    tk.Label(regra_window, text="Valor 1:").pack(pady=5)
+    entry_valor1 = tk.Entry(regra_window)
+    entry_valor1.pack(pady=5)
+
+    tk.Label(regra_window, text="Valor 2:").pack(pady=5)
+    entry_valor2 = tk.Entry(regra_window)
+    entry_valor2.pack(pady=5)
+
+    tk.Label(regra_window, text="Valor 3:").pack(pady=5)
+    entry_valor3 = tk.Entry(regra_window)
+    entry_valor3.pack(pady=5)
+
+    calcular_btn = ttk.Button(regra_window, text="Calcular Regra de 3", command=calcular)
+    calcular_btn.pack(pady=10)
+
+    resultado_regra = tk.Label(regra_window, text="Resultado será exibido aqui.")
+    resultado_regra.pack(pady=10)
+
+# Janela principal
+root = tk.Tk()
+root.title("Menu Principal")
+
+# Botões da janela principal
+botao_imc = ttk.Button(root, text="Calculadora IMC", command=calcular_imc)
+botao_imc.pack(pady=10, padx=20)
+
+botao_calculadora = ttk.Button(root, text="Calculadora", command=calculadora)
+botao_calculadora.pack(pady=10, padx=20)
+
+botao_regra_de_3 = ttk.Button(root, text="Regra de 3", command=regra_de_3)
+botao_regra_de_3.pack(pady=10, padx=20)
+
+root.mainloop()
